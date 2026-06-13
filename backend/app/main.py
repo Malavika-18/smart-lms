@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
-from app.api import auth, courses
+from app.api import auth, courses, quiz
 
 Base.metadata.create_all(bind=engine)
 
@@ -21,14 +21,11 @@ app.add_middleware(
 
 app.include_router(auth.router)
 app.include_router(courses.router)
+app.include_router(quiz.router)
 
 @app.get("/")
 def root():
-    return {
-        "message": "Welcome to Smart LMS API",
-        "status": "running",
-        "version": "1.0.0"
-    }
+    return {"message": "Welcome to Smart LMS API", "status": "running", "version": "1.0.0"}
 
 @app.get("/health")
 def health_check():
