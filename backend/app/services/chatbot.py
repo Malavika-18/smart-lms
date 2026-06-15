@@ -62,30 +62,30 @@ RESPONSES = {
 def detect_intent(message: str) -> str:
     message_lower = message.lower()
 
-    if any(word in message_lower for word in ["hi", "hello", "hey", "good morning", "good evening", "howdy", "greetings", "what's up", "sup"]):
-        return "greeting"
     if any(word in message_lower for word in ["quiz", "test", "exam", "score", "marks", "grade", "attempt", "question", "answer", "pass", "fail"]):
         return "quiz"
-    if any(word in message_lower for word in ["study", "learn", "memorize", "remember", "focus", "concentrate", "revision", "review", "notes", "tips", "technique", "strategy"]):
-        return "study"
-    if any(word in message_lower for word in ["ai", "artificial intelligence", "machine learning", "ml", "deep learning", "neural", "algorithm", "model", "prediction", "classification", "regression", "clustering"]):
-        return "ai_ml"
     if any(word in message_lower for word in ["python", "pandas", "numpy", "scikit", "tensorflow", "pytorch", "flask", "fastapi", "django"]):
         return "python"
     if any(word in message_lower for word in ["data science", "data analysis", "dataset", "visualization", "statistics", "probability", "feature", "preprocessing", "eda"]):
         return "data_science"
+    if any(word in message_lower for word in ["ai", "artificial intelligence", "machine learning", "ml", "deep learning", "neural", "algorithm", "model", "prediction", "classification", "regression", "clustering"]):
+        return "ai_ml"
     if any(word in message_lower for word in ["code", "coding", "programming", "debug", "function", "variable", "loop", "syntax", "error", "bug", "software", "javascript", "react", "html", "css"]):
         return "programming"
-    if any(word in message_lower for word in ["motivat", "discouraged", "tired", "give up", "struggling", "hard", "difficult", "stress", "anxious", "worried", "inspire", "encourage"]):
-        return "motivation"
-    if any(word in message_lower for word in ["course", "lesson", "module", "enroll", "complete", "curriculum", "syllabus", "content", "material"]):
-        return "course"
-    if any(word in message_lower for word in ["performance", "progress", "improve", "better", "weak", "strength", "analytics", "track", "history", "result"]):
-        return "performance"
     if any(word in message_lower for word in ["leaderboard", "rank", "points", "top", "position", "badge", "reward", "first place", "competition"]):
         return "leaderboard"
+    if any(word in message_lower for word in ["performance", "progress", "improve", "better", "weak", "strength", "analytics", "track", "history", "result"]):
+        return "performance"
+    if any(word in message_lower for word in ["course", "lesson", "module", "enroll", "complete", "curriculum", "syllabus", "content", "material"]):
+        return "course"
+    if any(word in message_lower for word in ["motivat", "discouraged", "tired", "give up", "struggling", "hard", "difficult", "stress", "anxious", "worried", "inspire", "encourage"]):
+        return "motivation"
+    if any(word in message_lower for word in ["study", "learn", "memorize", "remember", "focus", "concentrate", "revision", "review", "notes", "tips", "technique", "strategy"]):
+        return "study"
     if any(word in message_lower for word in ["help", "what can you do", "commands", "options", "features", "capabilities", "support"]):
         return "help"
+    if any(word in message_lower for word in ["hi", "hello", "hey", "good morning", "good evening", "howdy", "greetings", "what's up", "sup"]):
+        return "greeting"
 
     return "default"
 
