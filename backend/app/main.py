@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
 from app.api import auth, courses, quiz, recommendations, performance, analytics, chatbot
+import os
 
 Base.metadata.create_all(bind=engine)
 
@@ -11,13 +12,14 @@ app = FastAPI(
     version="1.0.0"
 )
 
+ALLOWED_ORIGINS = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:5173,http://localhost,http://localhost:80"
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost",
-        "http://localhost:80",
-    ],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
