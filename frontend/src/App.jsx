@@ -8,6 +8,7 @@ import Courses from './pages/Courses';
 import Quiz from './pages/Quiz';
 import Recommendations from './pages/Recommendations';
 import Performance from './pages/Performance';
+import Leaderboard from './pages/Leaderboard';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/quiz/:quizId" element={<Quiz />} />
         <Route path="/recommendations" element={<Recommendations />} />
         <Route path="/performance" element={<Performance />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </Router>
   );
