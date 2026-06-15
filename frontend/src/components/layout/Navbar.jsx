@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
-import { MdSchool, MdAutoAwesome, MdPsychology, MdLeaderboard } from 'react-icons/md';
+import { MdSchool, MdAutoAwesome, MdPsychology, MdLeaderboard, MdSmartToy } from 'react-icons/md';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -32,6 +32,9 @@ const Navbar = () => {
         </Link>
         <Link to="/leaderboard" className="flex items-center gap-1 text-gray-600 hover:text-blue-600 font-medium">
           <MdLeaderboard className="text-green-500" /> Leaderboard
+        </Link>
+        <Link to="/chatbot" className="flex items-center gap-1 text-gray-600 hover:text-blue-600 font-medium">
+          <MdSmartToy className="text-blue-500" /> SmartBot
         </Link>
         <button
           onClick={handleLogout}

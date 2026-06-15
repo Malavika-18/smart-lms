@@ -9,6 +9,7 @@ import Quiz from './pages/Quiz';
 import Recommendations from './pages/Recommendations';
 import Performance from './pages/Performance';
 import Leaderboard from './pages/Leaderboard';
+import Chatbot from './pages/Chatbot';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/recommendations" element={<Recommendations />} />
         <Route path="/performance" element={<Performance />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/chatbot" element={<Chatbot />} />
       </Routes>
     </Router>
   );
