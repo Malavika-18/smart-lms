@@ -2,9 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
 from app.api import auth, courses, quiz, recommendations, performance, analytics, chatbot
+from app.seed import run_seed
 import os
 
 Base.metadata.create_all(bind=engine)
+
+# Auto-seed on startup
+run_seed()
 
 app = FastAPI(
     title="Smart LMS API",
@@ -14,7 +18,7 @@ app = FastAPI(
 
 ALLOWED_ORIGINS = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:5173,http://localhost,http://localhost:80"
+    "http://localhost:5173,http://localhost:80"
 ).split(",")
 
 app.add_middleware(
