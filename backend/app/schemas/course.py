@@ -2,6 +2,11 @@ from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
 
+class ResourceLink(BaseModel):
+    title: str
+    url: str
+    type: str  # "youtube", "article", "docs"
+
 class CourseCreate(BaseModel):
     title: str
     description: Optional[str] = None

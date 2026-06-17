@@ -96,27 +96,38 @@ const Courses = () => {
                     <p className="text-gray-500 text-sm mb-4 line-clamp-2">
                       {course.description || 'No description available'}
                     </p>
-                    <div className="flex items-center justify-between mb-3">
+
+                    {/* ✅ Updated bottom section */}
+                    <div className="flex items-center justify-between">
                       <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded">
                         {course.category || 'General'}
                       </span>
-                      {isEnrolled ? (
-                        <span className="bg-green-100 text-green-700 px-4 py-2 rounded-lg text-sm font-semibold">
-                          ✅ Enrolled
-                        </span>
-                      ) : (
+                      <div className="flex gap-2">
                         <button
-                          onClick={() => handleEnroll(course.id)}
-                          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition"
+                          onClick={() => navigate(`/course/${course.id}/learn`)}
+                          className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg text-sm font-semibold hover:bg-gray-200 transition"
                         >
-                          Enroll Now
+                          View
                         </button>
-                      )}
+                        {isEnrolled ? (
+                          <span className="bg-green-100 text-green-700 px-4 py-2 rounded-lg text-sm font-semibold">
+                            ✅ Enrolled
+                          </span>
+                        ) : (
+                          <button
+                            onClick={() => handleEnroll(course.id)}
+                            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition"
+                          >
+                            Enroll
+                          </button>
+                        )}
+                      </div>
                     </div>
+
                     {isEnrolled && quiz && (
                       <button
                         onClick={() => navigate(`/quiz/${quiz.id}`)}
-                        className="w-full bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition"
+                        className="w-full mt-3 bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition"
                       >
                         🎯 Take Quiz
                       </button>

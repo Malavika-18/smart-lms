@@ -10,6 +10,7 @@ import Recommendations from './pages/Recommendations';
 import Performance from './pages/Performance';
 import Leaderboard from './pages/Leaderboard';
 import Chatbot from './pages/Chatbot';
+import LessonViewer from './pages/LessonViewer';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/course/:courseId/learn" element={<LessonViewer />} />
         <Route path="/quiz/:quizId" element={<Quiz />} />
         <Route path="/recommendations" element={<Recommendations />} />
         <Route path="/performance" element={<Performance />} />
