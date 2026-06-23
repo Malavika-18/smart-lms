@@ -11,6 +11,9 @@ import Performance from './pages/Performance';
 import Leaderboard from './pages/Leaderboard';
 import Chatbot from './pages/Chatbot';
 import LessonViewer from './pages/LessonViewer';
+import TimeAnalytics from './pages/TimeAnalytics';
+import Certificate from './pages/Certificate';
+import MyCertificates from './pages/MyCertificates';
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
         <Route path="/performance" element={<Performance />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/chatbot" element={<Chatbot />} />
+        <Route path="/time" element={<TimeAnalytics />} />
+        <Route path="/certificate/:courseId" element={<Certificate />} />
+        <Route path="/my-certificates" element={<MyCertificates />} />
       </Routes>
     </Router>
   );

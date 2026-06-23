@@ -1,11 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
-
-class ResourceLink(BaseModel):
-    title: str
-    url: str
-    type: str  # "youtube", "article", "docs"
+from decimal import Decimal
 
 class CourseCreate(BaseModel):
     title: str
@@ -13,6 +9,8 @@ class CourseCreate(BaseModel):
     category: Optional[str] = None
     difficulty_level: Optional[str] = "beginner"
     thumbnail_url: Optional[str] = None
+    is_premium: Optional[bool] = False
+    price: Optional[float] = 0.00
 
 class CourseUpdate(BaseModel):
     title: Optional[str] = None
@@ -20,6 +18,8 @@ class CourseUpdate(BaseModel):
     category: Optional[str] = None
     difficulty_level: Optional[str] = None
     is_published: Optional[bool] = None
+    is_premium: Optional[bool] = None
+    price: Optional[float] = None
 
 class CourseResponse(BaseModel):
     id: int
@@ -29,6 +29,8 @@ class CourseResponse(BaseModel):
     difficulty_level: Optional[str]
     thumbnail_url: Optional[str]
     is_published: bool
+    is_premium: bool
+    price: float
     teacher_id: Optional[int]
     created_at: datetime
 
@@ -60,6 +62,10 @@ class EnrollmentResponse(BaseModel):
     course_id: int
     progress_percent: float
     completed: bool
+    is_paid: bool
+    certificate_issued: bool
+    certificate_issued_at: Optional[datetime]
+    quiz_best_score: float
     enrolled_at: datetime
 
     class Config:

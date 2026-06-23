@@ -363,6 +363,8 @@ def run_seed():
                 "description": "Build neural networks using TensorFlow and Keras for real-world AI applications.",
                 "category": "AI",
                 "difficulty_level": "advanced",
+                "is_premium": True,      # ← ADDED
+                "price": 999.00,         # ← ADDED
                 "lessons": [
                     {
                         "title": "Neural Networks Basics",
@@ -417,6 +419,8 @@ def run_seed():
                 "description": "Text preprocessing, sentiment analysis, and transformers using SpaCy and HuggingFace Transformers.",
                 "category": "AI",
                 "difficulty_level": "advanced",
+                "is_premium": True,      # ← ADDED
+                "price": 1299.00,        # ← ADDED
                 "lessons": [
                     {
                         "title": "Text Preprocessing",
@@ -471,6 +475,8 @@ def run_seed():
                 "description": "Containerization, CI/CD pipelines, Docker, and cloud deployment for modern software teams.",
                 "category": "DevOps",
                 "difficulty_level": "intermediate",
+                "is_premium": True,      # ← ADDED
+                "price": 799.00,         # ← ADDED
                 "lessons": [
                     {
                         "title": "Introduction to Docker",
@@ -589,7 +595,9 @@ def run_seed():
                 category=course_data["category"],
                 difficulty_level=course_data["difficulty_level"],
                 teacher_id=teacher.id,
-                is_published=True
+                is_published=True,
+                is_premium=course_data.get("is_premium", False),  # ← UPDATED
+                price=course_data.get("price", 0.00)              # ← UPDATED
             )
             db.add(course)
             db.commit()

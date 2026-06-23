@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime, ForeignKey, Float, Numeric
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.database import Base
@@ -14,9 +14,10 @@ class Course(Base):
     difficulty_level = Column(String(20), default="beginner")
     thumbnail_url = Column(String(255), nullable=True)
     is_published = Column(Boolean, default=False)
+    is_premium = Column(Boolean, default=False)
+    price = Column(Numeric(10, 2), default=0.00)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    # Relationships
     teacher = relationship("User", foreign_keys=[teacher_id])
     lessons = relationship("Lesson", back_populates="course", cascade="all, delete")
     enrollments = relationship("Enrollment", back_populates="course", cascade="all, delete")
@@ -46,6 +47,10 @@ class Enrollment(Base):
     enrolled_at = Column(DateTime(timezone=True), server_default=func.now())
     progress_percent = Column(Float, default=0.0)
     completed = Column(Boolean, default=False)
+    is_paid = Column(Boolean, default=False)
+    certificate_issued = Column(Boolean, default=False)
+    certificate_issued_at = Column(DateTime(timezone=True), nullable=True)
+    quiz_best_score = Column(Float, default=0.0)
 
     student = relationship("User", foreign_keys=[student_id])
     course = relationship("Course", back_populates="enrollments")

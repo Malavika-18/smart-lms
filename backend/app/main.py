@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
-from app.api import auth, courses, quiz, recommendations, performance, analytics, chatbot
+from app.api import (
+    auth, courses, quiz, recommendations,
+    performance, analytics, chatbot, timelog, certificate
+)
 from app.seed import run_seed
 import os
 
 Base.metadata.create_all(bind=engine)
-
-# Auto-seed on startup
 run_seed()
 
 app = FastAPI(
@@ -36,10 +37,16 @@ app.include_router(recommendations.router)
 app.include_router(performance.router)
 app.include_router(analytics.router)
 app.include_router(chatbot.router)
+app.include_router(timelog.router)
+app.include_router(certificate.router)
 
 @app.get("/")
 def root():
-    return {"message": "Welcome to Smart LMS API", "status": "running", "version": "1.0.0"}
+    return {
+        "message": "Welcome to Smart LMS API",
+        "status": "running",
+        "version": "1.0.0"
+    }
 
 @app.get("/health")
 def health_check():

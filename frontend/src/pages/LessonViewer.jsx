@@ -12,7 +12,6 @@ import toast from 'react-hot-toast';
 import api from '../services/api';
 import Navbar from '../components/layout/Navbar';
 
-// Resource type config
 const resourceConfig = {
   youtube: {
     icon: <SiYoutube className="text-red-500" />,
@@ -31,7 +30,6 @@ const resourceConfig = {
   }
 };
 
-// Hardcoded resources per lesson title keyword
 const LESSON_RESOURCES = {
   "Introduction to Python": [
     { title: "Python Introduction - GeeksForGeeks", url: "https://www.geeksforgeeks.org/python-programming-language/", type: "article" },
@@ -100,7 +98,6 @@ const LESSON_RESOURCES = {
   ],
 };
 
-// Get YouTube embed from video_url
 const getYouTubeId = (url) => {
   if (!url) return null;
   const match = url.match(/embed\/([^?]+)/);
@@ -148,7 +145,6 @@ const LessonViewer = () => {
   const prevLesson = currentIndex > 0 ? lessons[currentIndex - 1] : null;
   const nextLesson = currentIndex < lessons.length - 1 ? lessons[currentIndex + 1] : null;
 
-  // Get resources for current lesson
   const lessonResources = activeLesson
     ? (LESSON_RESOURCES[activeLesson.title] || [
         { title: "GeeksForGeeks", url: "https://www.geeksforgeeks.org/", type: "article" },
@@ -196,7 +192,6 @@ const LessonViewer = () => {
                 </p>
               </div>
 
-              {/* Lessons List */}
               <div className="p-2">
                 <p className="text-xs font-semibold text-gray-400 uppercase px-2 py-2">
                   Lessons
@@ -252,6 +247,17 @@ const LessonViewer = () => {
                     ))}
                   </>
                 )}
+
+                {/* Certificate Button in Sidebar */}
+                <div className="px-2 pt-3 pb-2 mt-2 border-t border-gray-100">
+                  <Link
+                    to={`/certificate/${courseId}`}
+                    className="flex items-center justify-center gap-2 w-full px-3 py-3 rounded-xl bg-gradient-to-r from-yellow-400 to-orange-400 text-white font-semibold text-sm hover:from-yellow-500 hover:to-orange-500 transition"
+                  >
+                    🎓 Get Certificate
+                  </Link>
+                </div>
+
               </div>
             </div>
           </div>
@@ -366,6 +372,16 @@ const LessonViewer = () => {
                         📝 Take Quiz
                       </button>
                     )}
+
+                    {!nextLesson && (
+                      <Link
+                        to={`/certificate/${courseId}`}
+                        className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-yellow-400 to-orange-400 text-white hover:from-yellow-500 hover:to-orange-500 transition font-semibold"
+                      >
+                        🎓 Get Certificate
+                      </Link>
+                    )}
+
                     <button
                       onClick={() => nextLesson && setActiveLesson(nextLesson)}
                       disabled={!nextLesson}
