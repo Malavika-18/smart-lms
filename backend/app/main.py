@@ -52,6 +52,14 @@ def root():
 def health_check():
     return {"status": "healthy"}
 
+@app.get("/admin/reset-db")
+def reset_db():
+    from app.database import Base, engine
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+    run_seed()
+    return {"message": "DB reset and re-seeded successfully!"}
+
 @app.get("/setup-db")
 def setup_db():
     """One-time DB setup for Render"""
@@ -81,4 +89,4 @@ def setup_db():
 
     from app.seed import run_seed
     run_seed()
-    return {"status": "success", "message": "DB setup and seeded!"}
+    return {"status": "success", "message": "DB setup and seeded!"} 
