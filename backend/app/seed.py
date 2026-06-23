@@ -323,7 +323,7 @@ def run_seed():
                     },
                     {
                         "title": "Probability and Distributions",
-                        "content": "Probability measures the likelihood of an event occurring (0 to 1). Key distributions include Normal (bell curve, most common in nature), Binomial (success/failure trials), and Poisson (count of events in time). Bayes Theorem updates probability when new evidence arrives: P(A|B) = P(B|A) × P(A) / P(B). Used heavily in ML.",
+                        "content": "Probability measures the likelihood of an event occurring (0 to 1). Key distributions include Normal (bell curve, most common in nature), Binomial (success/failure trials), and Poisson (count of events in time). Bayes Theorem updates probability when new evidence arrives: P(A|B) = P(B|A) x P(A) / P(B). Used heavily in ML.",
                         "video_url": "https://www.youtube.com/embed/uzkc-qNVoOk",
                         "duration_minutes": 35,
                         "resources": [
@@ -363,8 +363,8 @@ def run_seed():
                 "description": "Build neural networks using TensorFlow and Keras for real-world AI applications.",
                 "category": "AI",
                 "difficulty_level": "advanced",
-                "is_premium": True,      # ← ADDED
-                "price": 999.00,         # ← ADDED
+                "is_premium": True,
+                "price": 999.00,
                 "lessons": [
                     {
                         "title": "Neural Networks Basics",
@@ -419,12 +419,12 @@ def run_seed():
                 "description": "Text preprocessing, sentiment analysis, and transformers using SpaCy and HuggingFace Transformers.",
                 "category": "AI",
                 "difficulty_level": "advanced",
-                "is_premium": True,      # ← ADDED
-                "price": 1299.00,        # ← ADDED
+                "is_premium": True,
+                "price": 1299.00,
                 "lessons": [
                     {
                         "title": "Text Preprocessing",
-                        "content": "Raw text must be cleaned before feeding into ML models. Tokenization splits text into words or sentences. Stop word removal eliminates common words like 'the', 'is'. Stemming reduces words to root forms (running → run). Lemmatization returns dictionary forms. TF-IDF (Term Frequency-Inverse Document Frequency) converts text to numerical vectors representing word importance.",
+                        "content": "Raw text must be cleaned before feeding into ML models. Tokenization splits text into words or sentences. Stop word removal eliminates common words like 'the', 'is'. Stemming reduces words to root forms (running to run). Lemmatization returns dictionary forms. TF-IDF (Term Frequency-Inverse Document Frequency) converts text to numerical vectors representing word importance.",
                         "video_url": "https://www.youtube.com/embed/X2vAabgKiuM",
                         "duration_minutes": 35,
                         "resources": [
@@ -475,8 +475,8 @@ def run_seed():
                 "description": "Containerization, CI/CD pipelines, Docker, and cloud deployment for modern software teams.",
                 "category": "DevOps",
                 "difficulty_level": "intermediate",
-                "is_premium": True,      # ← ADDED
-                "price": 799.00,         # ← ADDED
+                "is_premium": True,
+                "price": 799.00,
                 "lessons": [
                     {
                         "title": "Introduction to Docker",
@@ -491,7 +491,7 @@ def run_seed():
                     },
                     {
                         "title": "Docker Compose",
-                        "content": "Docker Compose orchestrates multi-container applications using a YAML file. Define all your services (web app, database, cache) in docker-compose.yml with their images, ports, volumes, and environment variables. One command `docker-compose up` starts everything. `docker-compose down` stops and removes containers. Perfect for development environments.",
+                        "content": "Docker Compose orchestrates multi-container applications using a YAML file. Define all your services (web app, database, cache) in docker-compose.yml with their images, ports, volumes, and environment variables. One command docker-compose up starts everything. docker-compose down stops and removes containers. Perfect for development environments.",
                         "video_url": "https://www.youtube.com/embed/HG6yIjqMVjE",
                         "duration_minutes": 30,
                         "resources": [
@@ -502,7 +502,7 @@ def run_seed():
                     },
                     {
                         "title": "CI/CD Pipelines",
-                        "content": "CI/CD automates testing and deployment. Continuous Integration means every code push triggers automated tests. Continuous Delivery means tested code is automatically deployed to staging or production. GitHub Actions uses YAML workflow files to define pipelines. On every push: run tests → build Docker image → deploy to cloud. This eliminates manual deployment errors.",
+                        "content": "CI/CD automates testing and deployment. Continuous Integration means every code push triggers automated tests. Continuous Delivery means tested code is automatically deployed to staging or production. GitHub Actions uses YAML workflow files to define pipelines. On every push: run tests, build Docker image, deploy to cloud. This eliminates manual deployment errors.",
                         "video_url": "https://www.youtube.com/embed/R8_veQiYBjI",
                         "duration_minutes": 40,
                         "resources": [
@@ -596,8 +596,8 @@ def run_seed():
                 difficulty_level=course_data["difficulty_level"],
                 teacher_id=teacher.id,
                 is_published=True,
-                is_premium=course_data.get("is_premium", False),  # ← UPDATED
-                price=course_data.get("price", 0.00)              # ← UPDATED
+                is_premium=course_data.get("is_premium", False),
+                price=course_data.get("price", 0.00)
             )
             db.add(course)
             db.commit()

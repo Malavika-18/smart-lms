@@ -73,7 +73,7 @@ const Dashboard = () => {
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-3xl font-bold mb-1">
-                Welcome back, {overview?.student?.full_name}! 👋
+                Welcome back, {overview?.student?.full_name || 'Student'}! 👋
               </h1>
               <p className="text-blue-100">
                 Ready to continue your learning journey?
@@ -123,7 +123,7 @@ const Dashboard = () => {
             },
             {
               label: 'Rank',
-              value: `#${overview?.stats?.leaderboard_rank}`,
+              value: overview?.stats?.leaderboard_rank ? `#${overview?.stats?.leaderboard_rank}` : '#1',
               icon: <FiAward className="text-red-500" />,
               color: 'red'
             },

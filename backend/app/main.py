@@ -51,3 +51,34 @@ def root():
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+@app.get("/setup-db")
+def setup_db():
+    """One-time DB setup for Render"""
+    from app.database import engine
+    from sqlalchemy import text
+    with engine.connect() as conn:
+        try:
+            conn.execute(text("ALTER TABLE courses ADD COLUMN IF NOT EXISTS is_premium BOOLEAN DEFAULT FALSE"))
+            conn.execute(text("ALTER TABLE courses ADD COLUMN IF NOT EXISTS price DECIMAL(10,2) DEFAULT 0.00"))
+            conn.execute(text("ALTER TABLE enrollments ADD COLUMN IF NOT EXISTS is_paid BOOLEAN DEFAULT FALSE"))
+            conn.execute(text("ALTER TABLE enrollments ADD COLUMN IF NOT EXISTS certificate_issued BOOLEAN DEFAULT FALSE"))
+            conn.execute(text("ALTER TABLE enrollments ADD COLUMN IF NOT EXISTS certificate_issued_at TIMESTAMP"))
+            conn.execute(text("ALTER TABLE enrollments ADD COLUMN IF NOT EXISTS quiz_best_score FLOAT DEFAULT 0.0"))
+            conn.execute(text("""
+                CREATE TABLE IF NOT EXISTS time_logs (
+                    id SERIAL PRIMARY KEY,
+                    student_id INT REFERENCES users(id) ON DELETE CASCADE,
+                    course_id INT REFERENCES courses(id) ON DELETE SET NULL,
+                    page_name VARCHAR(100),
+                    duration_seconds INT DEFAULT 0,
+                    logged_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """))
+            conn.commit()
+        except Exception as e:
+            return {"status": "error", "message": str(e)}
+
+    from app.seed import run_seed
+    run_seed()
+    return {"status": "success", "message": "DB setup and seeded!"}
