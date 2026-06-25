@@ -14,11 +14,16 @@ import LessonViewer from './pages/LessonViewer';
 import TimeAnalytics from './pages/TimeAnalytics';
 import Certificate from './pages/Certificate';
 import MyCertificates from './pages/MyCertificates';
+import FloatingChatbot from './components/FloatingChatbot';
 
 function App() {
   return (
     <Router>
       <Toaster position="top-right" />
+
+      {/* Floating chatbot visible on ALL pages */}
+      <FloatingChatbot />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
