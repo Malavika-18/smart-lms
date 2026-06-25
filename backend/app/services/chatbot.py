@@ -86,7 +86,7 @@ def get_groq_response(message: str, conversation_history: list, student_name: st
     })
 
     response = groq_client.chat.completions.create(
-        model="llama3-8b-8192",  # Free model on Groq
+        model="llama-3.1-8b-instant",  # Free model on Groq
         messages=messages,
         max_tokens=500,
         temperature=0.7
