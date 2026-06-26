@@ -25,7 +25,6 @@ const FloatingChatbot = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Don't show if not logged in
   if (!isLoggedIn) return null;
 
   const sendMessage = async (text) => {
@@ -304,16 +303,15 @@ const FloatingChatbot = () => {
           borderRadius: '50%',
           background: isOpen
             ? '#ef4444'
-            : 'linear-gradient(135deg, #3b82f6, #6366f1)',
+            : 'linear-gradient(135deg, #f59e0b, #d97706)',
           border: 'none',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 8px 25px rgba(59,130,246,0.5)',
+          boxShadow: '0 8px 25px rgba(245,158,11,0.5)',
           zIndex: 9999,
-          transition: 'all 0.3s ease',
-          transform: isOpen ? 'rotate(0deg)' : 'rotate(0deg)'
+          transition: 'all 0.3s ease'
         }}
       >
         {isOpen
@@ -328,7 +326,7 @@ const FloatingChatbot = () => {
             width: '60px',
             height: '60px',
             borderRadius: '50%',
-            background: 'rgba(59,130,246,0.4)',
+            background: 'rgba(245,158,11,0.4)',
             animation: 'ping 2s infinite'
           }} />
         )}
