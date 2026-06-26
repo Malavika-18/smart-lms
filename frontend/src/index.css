@@ -125,3 +125,41 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+/* Global dark overrides for remaining pages */
+.min-h-screen { background: #0a0a0f !important; }
+.bg-gray-50 { background: #0a0a0f !important; }
+.bg-white { background: rgba(255,255,255,0.04) !important; border: 1px solid rgba(255,255,255,0.08) !important; }
+.text-gray-800, .text-gray-700 { color: #f1f5f9 !important; }
+.text-gray-600, .text-gray-500 { color: #94a3b8 !important; }
+.text-gray-400 { color: #475569 !important; }
+.text-blue-600 { color: #f59e0b !important; }
+.bg-blue-600 { background: linear-gradient(135deg, #f59e0b, #d97706) !important; color: #0a0a0f !important; }
+.bg-blue-50 { background: rgba(245,158,11,0.1) !important; }
+.text-blue-700 { color: #f59e0b !important; }
+.border-gray-200, .border-gray-100 { border-color: rgba(255,255,255,0.08) !important; }
+.bg-gray-100 { background: rgba(255,255,255,0.06) !important; }
+.bg-gradient-to-r.from-blue-500 { background: linear-gradient(135deg, #6366f1, #8b5cf6) !important; }
+.shadow-md, .shadow-sm, .shadow-lg { box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important; }
+.hover\:bg-gray-50:hover { background: rgba(255,255,255,0.06) !important; }
+.hover\:shadow-lg:hover { box-shadow: 0 8px 30px rgba(245,158,11,0.15) !important; }
+.border-blue-500 { border-color: #f59e0b !important; }
+.bg-green-100 { background: rgba(16,185,129,0.15) !important; }
+.text-green-700 { color: #10b981 !important; }
+.bg-yellow-100 { background: rgba(245,158,11,0.15) !important; }
+.text-yellow-700 { color: #f59e0b !important; }
+.bg-red-100 { background: rgba(239,68,68,0.15) !important; }
+.text-red-700 { color: #ef4444 !important; }
+.bg-purple-50 { background: rgba(139,92,246,0.1) !important; }
+.text-purple-500 { color: #8b5cf6 !important; }
+input, textarea, select {
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: #e2e8f0 !important;
+}
+input:focus, textarea:focus {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 20px rgba(245,158,11,0.2) !important;
+}
+table { color: #94a3b8; }
+th { color: #64748b !important; border-color: rgba(255,255,255,0.08) !important; }
+td { border-color: rgba(255,255,255,0.05) !important; }

@@ -49,9 +49,8 @@ const Chatbot = () => {
     setLoading(true);
 
     try {
-      // Only send actual conversation history, not the first bot greeting
       const historyToSend = messages
-        .slice(1)  // Skip the initial greeting
+        .slice(1)
         .slice(-10)
         .map(m => ({ role: m.role, content: m.content }));
 
@@ -86,19 +85,24 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="bg-mesh" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
-      <div className="max-w-4xl mx-auto w-full px-4 py-6 flex flex-col flex-1">
+      <div style={{ maxWidth: '900px', margin: '0 auto', width: '100%', padding: '24px', display: 'flex', flexDirection: 'column', flex: 1 }}>
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
-          <div className="bg-blue-600 p-2 rounded-xl">
-            <MdSmartToy className="text-white text-2xl" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+          <div style={{
+            width: '52px', height: '52px', borderRadius: '14px',
+            background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: '0 0 30px rgba(245,158,11,0.4)'
+          }}>
+            <MdSmartToy style={{ color: '#0a0a0f', fontSize: '28px' }} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">SmartBot</h1>
-            <p className="text-green-500 text-sm font-medium flex items-center gap-1">
-              <span className="w-2 h-2 bg-green-500 rounded-full inline-block" />
+            <h1 style={{ fontSize: '24px', fontWeight: '800', color: '#f1f5f9' }}>SmartBot</h1>
+            <p style={{ color: '#10b981', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ width: '8px', height: '8px', background: '#10b981', borderRadius: '50%', display: 'inline-block' }} />
               AI Assistant Online
             </p>
           </div>
@@ -106,14 +110,30 @@ const Chatbot = () => {
 
         {/* Suggestions */}
         {messages.length === 1 && (
-          <div className="mb-4">
-            <p className="text-gray-500 text-sm mb-2">Try asking:</p>
-            <div className="flex flex-wrap gap-2">
+          <div style={{ marginBottom: '16px' }}>
+            <p style={{ color: '#64748b', fontSize: '13px', marginBottom: '8px' }}>Try asking:</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {suggestions.map((s, i) => (
                 <button
                   key={i}
                   onClick={() => sendMessage(s)}
-                  className="bg-white border border-gray-200 text-gray-600 text-sm px-3 py-2 rounded-lg hover:bg-blue-50 hover:border-blue-300 transition"
+                  style={{
+                    background: 'rgba(255,255,255,0.04)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    color: '#94a3b8', fontSize: '13px',
+                    padding: '8px 14px', borderRadius: '20px',
+                    cursor: 'pointer', transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = 'rgba(245,158,11,0.1)';
+                    e.currentTarget.style.borderColor = 'rgba(245,158,11,0.3)';
+                    e.currentTarget.style.color = '#f59e0b';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                    e.currentTarget.style.color = '#94a3b8';
+                  }}
                 >
                   {s}
                 </button>
@@ -123,31 +143,42 @@ const Chatbot = () => {
         )}
 
         {/* Messages */}
-        <div className="flex-1 bg-white rounded-2xl shadow-sm p-4 mb-4 overflow-y-auto max-h-[500px]">
-          <div className="space-y-4">
+        <div className="glass" style={{ flex: 1, borderRadius: '20px', padding: '16px', marginBottom: '16px', overflowY: 'auto', maxHeight: '500px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {messages.map((msg, i) => (
               <div
                 key={i}
-                className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
+                style={{
+                  display: 'flex', gap: '10px',
+                  flexDirection: msg.role === 'user' ? 'row-reverse' : 'row'
+                }}
               >
                 {/* Avatar */}
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  msg.role === 'user'
-                    ? 'bg-blue-600'
-                    : 'bg-gradient-to-br from-purple-500 to-blue-600'
-                }`}>
+                <div style={{
+                  width: '32px', height: '32px', borderRadius: '50%',
+                  background: msg.role === 'user'
+                    ? 'linear-gradient(135deg, #f59e0b, #d97706)'
+                    : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0
+                }}>
                   {msg.role === 'user'
-                    ? <FiUser className="text-white text-sm" />
-                    : <MdSmartToy className="text-white text-sm" />
+                    ? <FiUser style={{ color: '#0a0a0f', fontSize: '14px' }} />
+                    : <MdSmartToy style={{ color: 'white', fontSize: '14px' }} />
                   }
                 </div>
 
                 {/* Bubble */}
-                <div className={`max-w-[75%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
-                  msg.role === 'user'
-                    ? 'bg-blue-600 text-white rounded-tr-none'
-                    : 'bg-gray-100 text-gray-800 rounded-tl-none'
-                }`}>
+                <div style={{
+                  maxWidth: '75%', padding: '12px 16px', fontSize: '14px', lineHeight: 1.6,
+                  borderRadius: msg.role === 'user' ? '18px 4px 18px 18px' : '4px 18px 18px 18px',
+                  background: msg.role === 'user'
+                    ? 'linear-gradient(135deg, #f59e0b, #d97706)'
+                    : 'rgba(255,255,255,0.06)',
+                  color: msg.role === 'user' ? '#0a0a0f' : '#cbd5e1',
+                  border: msg.role === 'user' ? 'none' : '1px solid rgba(255,255,255,0.08)',
+                  whiteSpace: 'pre-wrap'
+                }}>
                   {msg.content}
                 </div>
               </div>
@@ -155,16 +186,28 @@ const Chatbot = () => {
 
             {/* Typing indicator */}
             {loading && (
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
-                  <MdSmartToy className="text-white text-sm" />
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <div style={{
+                  width: '32px', height: '32px', borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}>
+                  <MdSmartToy style={{ color: 'white', fontSize: '14px' }} />
                 </div>
-                <div className="bg-gray-100 px-4 py-3 rounded-2xl rounded-tl-none">
-                  <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                  </div>
+                <div style={{
+                  background: 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  padding: '12px 16px', borderRadius: '4px 18px 18px 18px',
+                  display: 'flex', gap: '4px', alignItems: 'center'
+                }}>
+                  {[0, 1, 2].map(i => (
+                    <span key={i} style={{
+                      width: '8px', height: '8px', borderRadius: '50%',
+                      background: '#475569', display: 'inline-block',
+                      animation: 'bounce 1.4s infinite',
+                      animationDelay: `${i * 150}ms`
+                    }} />
+                  ))}
                 </div>
               </div>
             )}
@@ -173,26 +216,44 @@ const Chatbot = () => {
         </div>
 
         {/* Input */}
-        <div className="flex gap-3">
+        <div style={{ display: 'flex', gap: '12px' }}>
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Ask SmartBot anything... (Press Enter to send)"
             rows={1}
-            className="flex-1 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="input-dark"
+            style={{
+              flex: 1, borderRadius: '14px',
+              padding: '14px 18px', fontSize: '14px',
+              resize: 'none', fontFamily: 'inherit'
+            }}
           />
           <button
             onClick={() => sendMessage()}
             disabled={loading || !input.trim()}
-            className="bg-blue-600 text-white px-5 py-3 rounded-xl hover:bg-blue-700 transition disabled:opacity-50 flex items-center gap-2"
+            className="btn-gold"
+            style={{
+              padding: '14px 20px', borderRadius: '14px',
+              border: 'none', cursor: loading || !input.trim() ? 'not-allowed' : 'pointer',
+              display: 'flex', alignItems: 'center', gap: '8px',
+              opacity: loading || !input.trim() ? 0.5 : 1
+            }}
           >
             <FiSend />
           </button>
         </div>
-        <p className="text-xs text-gray-400 text-center mt-2">
-          Powered by Claude AI • Press Enter to send, Shift+Enter for new line
+        <p style={{ textAlign: 'center', color: '#334155', fontSize: '12px', marginTop: '8px' }}>
+          Powered by Groq AI • Press Enter to send, Shift+Enter for new line
         </p>
+
+        <style>{`
+          @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+          }
+        `}</style>
       </div>
     </div>
   );

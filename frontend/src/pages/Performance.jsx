@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  RadialBarChart, RadialBar, ResponsiveContainer,
-  BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid
+  BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer
 } from 'recharts';
 import { FiTrendingUp, FiAward, FiAlertTriangle, FiCheckCircle } from 'react-icons/fi';
 import { MdPsychology } from 'react-icons/md';
@@ -12,24 +11,24 @@ import Navbar from '../components/layout/Navbar';
 
 const predictionConfig = {
   at_risk: {
-    color: 'text-red-600',
-    bg: 'bg-red-50',
-    border: 'border-red-200',
-    icon: <FiAlertTriangle className="text-red-500 text-3xl" />,
+    color: '#ef4444',
+    bg: 'rgba(239,68,68,0.1)',
+    border: '1px solid rgba(239,68,68,0.3)',
+    icon: <FiAlertTriangle style={{ color: '#ef4444', fontSize: '32px' }} />,
     label: '⚠️ At Risk'
   },
   on_track: {
-    color: 'text-yellow-600',
-    bg: 'bg-yellow-50',
-    border: 'border-yellow-200',
-    icon: <FiCheckCircle className="text-yellow-500 text-3xl" />,
+    color: '#f59e0b',
+    bg: 'rgba(245,158,11,0.1)',
+    border: '1px solid rgba(245,158,11,0.3)',
+    icon: <FiCheckCircle style={{ color: '#f59e0b', fontSize: '32px' }} />,
     label: '✅ On Track'
   },
   excelling: {
-    color: 'text-green-600',
-    bg: 'bg-green-50',
-    border: 'border-green-200',
-    icon: <FiAward className="text-green-500 text-3xl" />,
+    color: '#10b981',
+    bg: 'rgba(16,185,129,0.1)',
+    border: '1px solid rgba(16,185,129,0.3)',
+    icon: <FiAward style={{ color: '#10b981', fontSize: '32px' }} />,
     label: '🌟 Excelling'
   }
 };
@@ -82,61 +81,93 @@ const Performance = () => {
 
   const config = prediction ? predictionConfig[prediction.prediction] : null;
 
+  const stats = [
+    { label: 'Courses Enrolled',   value: summary?.total_courses_enrolled, color: '#6366f1' },
+    { label: 'Quizzes Attempted',  value: summary?.total_quiz_attempts,    color: '#8b5cf6' },
+    { label: 'Quizzes Passed',     value: summary?.quizzes_passed,         color: '#10b981' },
+    { label: 'Avg Score',          value: `${summary?.average_score ?? 0}%`, color: '#f59e0b' },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-mesh" style={{ minHeight: '100vh' }}>
       <Navbar />
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px' }}>
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-8">
-          <MdPsychology className="text-blue-600 text-4xl" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '40px' }}>
+          <div style={{
+            width: '52px', height: '52px', borderRadius: '14px',
+            background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.3)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#6366f1', fontSize: '28px'
+          }}>
+            <MdPsychology />
+          </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">Performance Analytics</h1>
-            <p className="text-gray-500">AI-powered insights into your learning journey</p>
+            <h1 style={{ fontSize: '32px', fontWeight: '900', color: '#f1f5f9' }}>
+              Performance{' '}
+              <span style={{
+                background: 'linear-gradient(135deg, #f59e0b, #fbbf24)',
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'
+              }}>Analytics</span>
+            </h1>
+            <p style={{ color: '#64748b', marginTop: '4px' }}>
+              AI-powered insights into your learning journey
+            </p>
           </div>
         </div>
 
         {loading ? (
-          <div className="text-center py-20 text-gray-400">Analyzing your performance...</div>
+          <div style={{ textAlign: 'center', padding: '80px 0', color: '#475569' }}>
+            Analyzing your performance...
+          </div>
         ) : (
           <>
             {/* Stats Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              {[
-                { label: 'Courses Enrolled', value: summary?.total_courses_enrolled, color: 'blue' },
-                { label: 'Quizzes Attempted', value: summary?.total_quiz_attempts, color: 'purple' },
-                { label: 'Quizzes Passed', value: summary?.quizzes_passed, color: 'green' },
-                { label: 'Avg Score', value: `${summary?.average_score ?? 0}%`, color: 'yellow' },
-              ].map((stat, i) => (
-                <div key={i} className="bg-white rounded-xl shadow-sm p-5 text-center">
-                  <p className={`text-3xl font-bold text-${stat.color}-600`}>{stat.value}</p>
-                  <p className="text-gray-500 text-sm mt-1">{stat.label}</p>
+            <div style={{
+              display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '16px', marginBottom: '32px'
+            }}>
+              {stats.map((stat, i) => (
+                <div key={i} className="glass" style={{ borderRadius: '16px', padding: '24px', textAlign: 'center' }}>
+                  <p style={{ fontSize: '32px', fontWeight: '800', color: stat.color, marginBottom: '4px' }}>
+                    {stat.value ?? 0}
+                  </p>
+                  <p style={{ color: '#64748b', fontSize: '13px' }}>{stat.label}</p>
                 </div>
               ))}
             </div>
 
             {/* AI Prediction Card */}
             {prediction && config && (
-              <div className={`${config.bg} border-2 ${config.border} rounded-2xl p-6 mb-8`}>
-                <div className="flex items-start gap-4">
+              <div style={{
+                background: config.bg, border: config.border,
+                borderRadius: '20px', padding: '28px', marginBottom: '32px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
                   {config.icon}
-                  <div className="flex-1">
-                    <h2 className={`text-2xl font-bold ${config.color} mb-1`}>
+                  <div style={{ flex: 1 }}>
+                    <h2 style={{ fontSize: '24px', fontWeight: '800', color: config.color, marginBottom: '8px' }}>
                       {config.label}
                     </h2>
-                    <p className="text-gray-600 mb-1">
-                      Confidence: <span className="font-bold">{prediction.confidence}%</span>
+                    <p style={{ color: '#94a3b8', marginBottom: '8px' }}>
+                      Confidence:{' '}
+                      <span style={{ fontWeight: '700', color: '#f1f5f9' }}>
+                        {prediction.confidence}%
+                      </span>
                     </p>
-                    <div className="flex gap-4 text-sm mb-4">
-                      <span className="text-red-500">At Risk: {prediction.probabilities.at_risk}%</span>
-                      <span className="text-yellow-500">On Track: {prediction.probabilities.on_track}%</span>
-                      <span className="text-green-500">Excelling: {prediction.probabilities.excelling}%</span>
+                    <div style={{ display: 'flex', gap: '20px', fontSize: '13px', marginBottom: '16px' }}>
+                      <span style={{ color: '#ef4444' }}>At Risk: {prediction.probabilities.at_risk}%</span>
+                      <span style={{ color: '#f59e0b' }}>On Track: {prediction.probabilities.on_track}%</span>
+                      <span style={{ color: '#10b981' }}>Excelling: {prediction.probabilities.excelling}%</span>
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-700 mb-2">AI Recommendations:</p>
-                      <ul className="space-y-1">
+                      <p style={{ fontWeight: '700', color: '#cbd5e1', marginBottom: '8px' }}>
+                        AI Recommendations:
+                      </p>
+                      <ul style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         {prediction.recommendations.map((rec, i) => (
-                          <li key={i} className="text-gray-600 text-sm">{rec}</li>
+                          <li key={i} style={{ color: '#94a3b8', fontSize: '14px' }}>{rec}</li>
                         ))}
                       </ul>
                     </div>
@@ -147,15 +178,22 @@ const Performance = () => {
 
             {/* Quiz Score History Chart */}
             {chartData.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-                <h3 className="text-lg font-bold text-gray-800 mb-4">Quiz Score History</h3>
+              <div className="glass" style={{ borderRadius: '20px', padding: '28px', marginBottom: '32px' }}>
+                <h3 style={{ color: '#f1f5f9', fontWeight: '700', fontSize: '16px', marginBottom: '20px' }}>
+                  📊 Quiz Score History
+                </h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis domain={[0, 100]} />
-                    <Tooltip />
-                    <Bar dataKey="score" fill="#3b82f6" radius={[4, 4, 0, 0]} name="Score %" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                    <XAxis dataKey="name" stroke="#475569" tick={{ fill: '#64748b', fontSize: 12 }} />
+                    <YAxis domain={[0, 100]} stroke="#475569" tick={{ fill: '#64748b', fontSize: 12 }} />
+                    <Tooltip
+                      contentStyle={{
+                        background: '#0f0f1a', border: '1px solid rgba(245,158,11,0.3)',
+                        borderRadius: '10px', color: '#f1f5f9'
+                      }}
+                    />
+                    <Bar dataKey="score" fill="#f59e0b" radius={[6, 6, 0, 0]} name="Score %" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -163,35 +201,43 @@ const Performance = () => {
 
             {/* Recent Attempts Table */}
             {history.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-sm p-6">
-                <h3 className="text-lg font-bold text-gray-800 mb-4">Recent Quiz Attempts</h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
+              <div className="glass" style={{ borderRadius: '20px', padding: '28px' }}>
+                <h3 style={{ color: '#f1f5f9', fontWeight: '700', fontSize: '16px', marginBottom: '20px' }}>
+                  📋 Recent Quiz Attempts
+                </h3>
+                <div style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
                     <thead>
-                      <tr className="text-left text-gray-500 border-b">
-                        <th className="pb-3">Quiz</th>
-                        <th className="pb-3">Score</th>
-                        <th className="pb-3">Percentage</th>
-                        <th className="pb-3">Status</th>
-                        <th className="pb-3">Date</th>
+                      <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                        {['Quiz', 'Score', 'Percentage', 'Status', 'Date'].map(col => (
+                          <th key={col} style={{
+                            padding: '0 0 12px 0', textAlign: 'left',
+                            color: '#475569', fontWeight: '600', fontSize: '12px',
+                            textTransform: 'uppercase', letterSpacing: '1px'
+                          }}>
+                            {col}
+                          </th>
+                        ))}
                       </tr>
                     </thead>
                     <tbody>
                       {history.map((h, i) => (
-                        <tr key={i} className="border-b last:border-0">
-                          <td className="py-3">Quiz #{h.quiz_id}</td>
-                          <td className="py-3">{h.score}/{h.total_marks}</td>
-                          <td className="py-3">{h.percentage}%</td>
-                          <td className="py-3">
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                              h.passed
-                                ? 'bg-green-100 text-green-700'
-                                : 'bg-red-100 text-red-700'
-                            }`}>
+                        <tr key={i} style={{ borderBottom: i < history.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                          <td style={{ padding: '14px 0', color: '#cbd5e1' }}>Quiz #{h.quiz_id}</td>
+                          <td style={{ padding: '14px 0', color: '#cbd5e1' }}>{h.score}/{h.total_marks}</td>
+                          <td style={{ padding: '14px 0', color: '#cbd5e1' }}>{h.percentage}%</td>
+                          <td style={{ padding: '14px 0' }}>
+                            <span style={{
+                              padding: '4px 10px', borderRadius: '20px',
+                              fontSize: '12px', fontWeight: '600',
+                              background: h.passed ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)',
+                              color: h.passed ? '#10b981' : '#ef4444',
+                              border: h.passed ? '1px solid rgba(16,185,129,0.3)' : '1px solid rgba(239,68,68,0.3)'
+                            }}>
                               {h.passed ? 'Passed' : 'Failed'}
                             </span>
                           </td>
-                          <td className="py-3 text-gray-400">
+                          <td style={{ padding: '14px 0', color: '#475569' }}>
                             {new Date(h.attempted_at).toLocaleDateString()}
                           </td>
                         </tr>
